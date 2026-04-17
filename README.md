@@ -90,47 +90,7 @@ As a data analyst, I wanted to solve real-world banking problems:
 | 12 | Create visualizations | Matplotlib/Power BI | Present insights to stakeholders |
 
 ---
-
-## 🧹 Data Cleaning Process (Python)
-
-```python
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-
-df = pd.read_csv("Clean_01 bank loan applications.csv")
-
-# Check shape
-df.shape  # (4535, 17)
-
-# Remove duplicates
-df.drop_duplicates(inplace=True)
-
-# Standardize text columns
-for col in ['city', 'approval_status', 'default_status', 'employment_type']:
-    df[col] = df[col].str.title()
-
-# Fix default_status
-df['default_status'] = df['default_status'].fillna('Unknown').str.strip().str.title()
-df['default_status'] = df['default_status'].str.replace('Unknown', 'Yes')
-
-# Check missing values
-df.isnull().sum().sort_values(ascending=False).head(5)
-
-# Handle missing values
-df['interest_rate_pct'] = df['interest_rate_pct'].fillna(df['interest_rate_pct'].median())
-df['employment_type'] = df['employment_type'].fillna(df['employment_type'].mode()[0])
-df['existing_loans_count'] = df['existing_loans_count'].fillna(df['existing_loans_count'].median())
-
-# Convert date column
-df['application_date'] = pd.to_datetime(df['application_date'], format='mixed', dayfirst=True)
-
-# Extract Month and Year
-df['Month'] = df['application_date'].dt.month_name()
-df['Year'] = df['application_date'].dt.year
-```
-
----
+ 
 
 📊 Python Analysis – Questions I Answered
 
